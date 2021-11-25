@@ -1,0 +1,44 @@
+import java.sql.*;
+
+public class SQLiteJDBC {
+
+   public static void main( String args[] ) {
+   Connection c = null;
+   Statement stmt = null;
+   try {
+         Class.forName("org.sqlite.JDBC");
+         c = DriverManager.getConnection("jdbc:sqlite:test.db");
+         c.setAutoCommit(false);
+         System.out.println("Opened database successfully");
+         
+         stmt = c.createStatement();
+         String sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                        "VALUES ('Baahubali: The Beginning', 'Prabhas', ' Tamannaah', 'S. S. Rajamouli', 2015);"; 
+         stmt.executeUpdate(sql);
+
+         sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                  "VALUES ('Baahubali: The conclusion', 'Prabhas', ' Anushka Shetty', 'S. S. Rajamouli', 2017);"; 
+         stmt.executeUpdate(sql);
+
+         sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                  "VALUES ('Goodachari', 'Adivi Sesh', 'Sobhita Dhulipala', 'Sashi Kiran Tikka', 2018);"; 
+         stmt.executeUpdate(sql);
+
+         sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                  "VALUES ('Saaho', 'Prabhas', 'Shraddha Kapoor', 'Sujeeth', 2019);"; 
+         stmt.executeUpdate(sql);
+
+         sql = "INSERT INTO MOVIES (NAME, ACTOR, ACTRESS, DIRECTOR, YEAR_OF_RELEASE) " +
+                  "VALUES (' Most Eligible Bachelor', ' Akhil Akkineni', ' Pooja Hegde', 'Bhaskar', 2021);"; 
+         stmt.executeUpdate(sql);
+
+         stmt.close();
+         c.commit();
+         c.close();
+      } catch ( Exception e ) {
+         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+         System.exit(0);
+      }
+      System.out.println("Records created successfully");
+   }
+}
